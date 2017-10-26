@@ -1,6 +1,9 @@
 #!/bin/bash
 #Date - 26102017
 #Developer - Sysgain
+
+
+wget 
 DATE=`date +%Y%m%d%T`
 LOG=/tmp/jenkins_deploy.log.$DATE
 srcdir="/usr/share/jenkins"
@@ -21,8 +24,9 @@ CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//cru
 echo $api
 echo $CRUMB
 #systemctl restart jenkins && sleep 30
+sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
+#creating jenkins user
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sleep 30
-curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
-service jenkins restart
+curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
