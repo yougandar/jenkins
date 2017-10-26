@@ -19,6 +19,7 @@ sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/
 sudo apt-get update
 sudo apt-get install -y jenkins 
 sudo service jenkins restart
+sleep 20
 
 sudo apt install -y firewalld
 sudo firewall-cmd --list-ports
