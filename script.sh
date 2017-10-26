@@ -18,22 +18,22 @@ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key 
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get install -y jenkins 
+sudo service jenkins restart
 
-apt install -y firewalld
-firewall-cmd --list-ports
-firewall-cmd --zone=public --add-port=8080/tcp --permanant
-firewall-cmd --zone=public --add-port=8080/tcp --permanent
-firewall-cmd --reload
-service jenkins restart 
-
+sudo apt install -y firewalld
+sudo firewall-cmd --list-ports
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanant
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+sudo service jenkins restart 
 
 
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
-wget -P $srcdir https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
+sudo wget -P $srcdir https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
-wget -P $srcdir http://$url/jnlpJars/jenkins-cli.jar
+sudo wget -P $srcdir http://$url/jnlpJars/jenkins-cli.jar
 java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
 api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
 CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
@@ -44,5 +44,5 @@ sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username
 #creating jenkins user
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sleep 30
 
-curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
+sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
