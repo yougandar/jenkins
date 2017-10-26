@@ -22,6 +22,7 @@ sudo apt-get install -y jenkins
 sleep 10
 #for installing hxselect#
 sudo apt install html-xml-utils
+sudo apt-get update
 sleep 10
 # for opening the ports#
 sudo apt install -y firewalld
