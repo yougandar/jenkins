@@ -25,10 +25,9 @@ sudo apt install html-xml-utils
 sleep 10
 # for opening the ports#
 sudo apt install -y firewalld
-firewall-cmd --list-ports
-firewall-cmd --zone=public --add-port=8080/tcp 
-firewall-cmd --reload
-service jenkins restart 
+sudo firewall-cmd --zone=public --add-port=8080/tcp 
+sudo firewall-cmd --reload
+sudo service jenkins restart 
 sleep 20
 #setting the permissions
 sudo chmod 777 /var/lib/jenkins/secrets
