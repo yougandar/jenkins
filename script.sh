@@ -23,10 +23,9 @@ sleep 10
 #for installing hxselect#
 sudo apt install html-xml-utils
 # for opening the ports#
-apt install -y firewalld
+sudo apt install -y firewalld
 firewall-cmd --list-ports
-firewall-cmd --zone=public --add-port=8080/tcp --permanant
-firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --zone=public --add-port=8080/tcp 
 firewall-cmd --reload
 service jenkins restart 
 sleep 20
