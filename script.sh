@@ -10,24 +10,6 @@ user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
 
-sudo apt-get update
-sudo apt-get install -y default-jre 
-sudo apt-get install -y default-jdk sleep 20
-sudo apt-get install html-xml-utils sleep 10
-wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-sudo apt-get update
-sudo apt-get install -y jenkins 
-sudo service jenkins restart
-sleep 20
-
-sudo apt install -y firewalld
-sudo firewall-cmd --list-ports
-sudo firewall-cmd --zone=public --add-port=8080/tcp --permanant
-sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
-sudo firewall-cmd --reload
-sudo service jenkins restart 
-
 
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
@@ -40,7 +22,7 @@ api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxse
 CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
 echo $api
 echo $CRUMB
-#systemctl restart jenkins && sleep 30
+#systemctl restart jenkins
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
 #creating jenkins user
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sleep 30
