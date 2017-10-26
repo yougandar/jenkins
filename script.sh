@@ -2,8 +2,6 @@
 #Date - 26102017
 #Developer - Sysgain
 
-
-wget 
 DATE=`date +%Y%m%d%T`
 LOG=/tmp/jenkins_deploy.log.$DATE
 srcdir="/usr/share/jenkins"
@@ -11,6 +9,23 @@ jenkinsdir="/var/lib/jenkins"
 user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
+
+sudo apt-get update
+sudo apt-get install -y default-jre 
+sudo apt-get install -y default-jdk sleep 10
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install -y jenkins 
+
+apt install -y firewalld
+firewall-cmd --list-ports
+firewall-cmd --zone=public --add-port=8080/tcp --permanant
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --reload
+service jenkins restart 
+
+
 
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
