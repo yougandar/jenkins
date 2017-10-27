@@ -18,9 +18,9 @@ url="localhost:8080"
 #sudo service jenkins restart 
 #sleep 20
 #for installing hxselect#
-sudo apt-get update
-sudo apt install html-xml-utils
-sleep 10
+#sudo apt-get update
+#sudo apt install html-xml-utils
+#sleep 10
 #setting the permissions
 sudo chmod 777 /var/lib/jenkins/secrets
 sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
