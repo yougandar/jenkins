@@ -15,11 +15,11 @@ url="localhost:8080"
 #sudo firewall-cmd --zone=public --add-port=8080/tcp
 #sudo firewall-cmd --zone=public --add-port=8080/tcp 
 #sudo firewall-cmd --reload
-sudo service jenkins restart 
+#sudo service jenkins restart 
 #sleep 20
 #for installing hxselect#
-sudo apt install html-xml-utils
 sudo apt-get update
+sudo apt install html-xml-utils
 sleep 10
 #setting the permissions
 sudo chmod 777 /var/lib/jenkins/secrets
@@ -40,7 +40,6 @@ echo $CRUMB
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
 #creating jenkins user
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sleep 30
-
 sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
 
