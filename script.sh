@@ -21,12 +21,12 @@ sudo apt-get update
 sudo apt-get install -y jenkins 
 sleep 10
 # for opening the ports#
-sudo apt install -y firewalld
-sudo firewall-cmd --zone=public --add-port=8080/tcp
-sudo firewall-cmd --zone=public --add-port=8080/tcp 
-sudo firewall-cmd --reload
-sudo service jenkins restart 
-sleep 20
+#sudo apt install -y firewalld
+#sudo firewall-cmd --zone=public --add-port=8080/tcp
+#sudo firewall-cmd --zone=public --add-port=8080/tcp 
+#sudo firewall-cmd --reload
+#sudo service jenkins restart 
+#sleep 20
 #for installing hxselect#
 sudo apt install html-xml-utils
 sudo apt-get update
