@@ -1,7 +1,6 @@
 #!/bin/bash
 #Date - 26102017
 #Developer - Sysgain
-
 #setting the variables#
 DATE=`date +%Y%m%d%T`
 LOG=/tmp/jenkins_deploy.log.$DATE
