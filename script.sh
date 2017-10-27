@@ -10,21 +10,13 @@ jenkinsdir="/var/lib/jenkins"
 user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
-# for opening the ports#
-#sudo apt install -y firewalld
-#sudo firewall-cmd --zone=public --add-port=8080/tcp
-#sudo firewall-cmd --zone=public --add-port=8080/tcp 
-#sudo firewall-cmd --reload
-#sudo service jenkins restart 
-#sleep 20
 #for installing hxselect#
-#sudo apt-get update
-#sudo apt install html-xml-utils
-#sleep 10
+sudo apt-get update
+sudo apt install html-xml-utils
+sleep 10
 #setting the permissions
 sudo chmod 777 /var/lib/jenkins/secrets
 sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
-#getting the configuration file
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
 sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
@@ -37,7 +29,7 @@ CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//cru
 echo $api
 echo $CRUMB
 #systemctl restart jenkins
-sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
+#sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
 #creating jenkins user
 sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sleep 30
 sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
