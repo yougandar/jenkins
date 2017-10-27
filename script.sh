@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 #Date - 26102017
 #Developer - Sysgain
 
