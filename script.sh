@@ -18,14 +18,13 @@ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key 
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get install -y jenkins
-sudo service jenkins restart
-sleep 10
+sleep 20
 # for opening the ports#
 #sudo apt install -y firewalld
 #sudo firewall-cmd --zone=public --add-port=8080/tcp
 #sudo firewall-cmd --zone=public --add-port=8080/tcp 
 #sudo firewall-cmd --reload
-#sudo service jenkins restart 
+sudo service jenkins restart 
 #sleep 20
 #for installing hxselect#
 sudo apt install html-xml-utils
