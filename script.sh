@@ -11,7 +11,7 @@ passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
 #for installing hxselect#
 sudo apt-get update
-sudo apt install html-xml-utils
+sudo apt install -y html-xml-utils
 sudo sleep 20
 #setting the permissions
 sudo chmod +x /var/lib/jenkins/secrets
