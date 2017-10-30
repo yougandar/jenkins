@@ -10,12 +10,12 @@ user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
 #for installing hxselect#
-#sudo apt-get update
-#sudo apt install html-xml-utils
-#sleep 10
+sudo apt-get update
+sudo apt install html-xml-utils
+sleep 20
 #setting the permissions
-sudo chmod 777 /var/lib/jenkins/secrets
-sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
+sudo chmod +x /var/lib/jenkins/secrets
+sudo chmod +x /var/lib/jenkins/secrets/initialAdminPassword
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
 sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
