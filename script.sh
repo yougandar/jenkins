@@ -19,6 +19,7 @@ sudo chmod +x /var/lib/jenkins/secrets/initialAdminPassword
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
 sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
+sudo sleep 20
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
 sudo wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
