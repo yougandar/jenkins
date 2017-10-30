@@ -12,7 +12,7 @@ url="localhost:8080"
 #for installing hxselect#
 sudo apt-get update
 sudo apt install html-xml-utils
-sleep 20
+sudo sleep 20
 #setting the permissions
 sudo chmod +x /var/lib/jenkins/secrets
 sudo chmod +x /var/lib/jenkins/secrets/initialAdminPassword
@@ -22,15 +22,17 @@ sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
 sudo wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
-java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
-api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
-CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
-echo $api
-echo $CRUMB
+sudo java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
+sudo api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
+sudo CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
+sudo echo $api
+sudo echo $CRUMB
 #systemctl restart jenkins
 #sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
 #creating jenkins user
-sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
-sleep 30 && sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
+sudo sleep 30
+sudo java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
+sudo sleep 30  
+sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
 
