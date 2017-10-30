@@ -32,9 +32,7 @@ sudo echo $CRUMB
 #systemctl restart jenkins
 #sleep 30 && java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
 #creating jenkins user
-sudo sleep 30
-sudo java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
-sudo sleep 30  
+sudo sleep 30 && sudo java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd && sudo sleep 30  
 sudo curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
 
 
