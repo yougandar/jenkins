@@ -21,7 +21,7 @@ echo "---Download the Required Jenkins Files---" >> $LOG
 sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
-sudo wget -P $srcdir http://$url/jnlpJars/jenkins-cli.jar
+sudo wget -P $srcdir http://localhost:8080/jnlpJars/jenkins-cli.jar
 #sudo wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
 sudo java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
 sudo api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
