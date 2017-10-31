@@ -22,10 +22,10 @@ sudo wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test
 sudo sleep 20
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
-sudo wget http://$url/jnlpJars/jenkins-cli.jar
-sudo cp jenkins-cli.jar $srcdir
+#sudo wget http://$url/jnlpJars/jenkins-cli.jar
+#sudo cp jenkins-cli.jar $srcdir
 #sudo wget -P $srcdir http://$url/jnlpJars/jenkins-cli.jar
-#sudo wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
+sudo wget -P /usr/share/jenkins http://$1:8080/jnlpJars/jenkins-cli.jar
 sudo java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
 sudo api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
 sudo CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
