@@ -20,7 +20,7 @@ wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/mast
 echo "---Configuring Jenkins---" >> $LOG
 cd /home/ubuntu/
 echo "`pwd`" >> $LOG
-curl -L -O http://${url}/jnlpJars/jenkins-cli.jar >> $LOG
+wget -L -O http://${url}/jnlpJars/jenkins-cli.jar >> $LOG
 sudo cp /home/ubuntu/jenkins-cli.jar /usr/share/jenkins/ >> $LOG
 #wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar $srcdir/jenkins-cli.jar -s http://${url} who-am-i --username $user --password $passwd >> $LOG
