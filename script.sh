@@ -18,7 +18,10 @@ echo "---Download the Required Jenkins Files---" >> $LOG
 wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
-wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
+cd /home/ubuntu/
+wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+sudo cp ./jenkins-cli.jar /usr/share/jenkins/
+#wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
 api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
 CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
