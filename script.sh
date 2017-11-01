@@ -5,7 +5,7 @@ srcdir="/usr/share/jenkins"
 jenkinsdir="/var/lib/jenkins"
 user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
-url="localhost:8080"
+url="$1:8080"
 #for installing hxselect#
 sudo apt-get update
 sudo apt install -y html-xml-utils >> $LOG
@@ -19,16 +19,16 @@ wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/mast
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
 cd /home/ubuntu/
-curl -L -O http://localhost:8080/jnlpJars/jenkins-cli.jar >> $LOG
+curl -L -O http://${url}/jnlpJars/jenkins-cli.jar >> $LOG
 sudo cp ./jenkins-cli.jar /usr/share/jenkins/ >> $LOG
 #wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
-java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd >> $LOG
-api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'` >> $LOG
-CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'` >> $LOG
+java -jar $srcdir/jenkins-cli.jar -s http://${url} who-am-i --username $user --password $passwd >> $LOG
+api=`curl --silent --basic http://$user:$passwd@${url}/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'` >> $LOG
+CRUMB=`curl 'http://'$user':'$api'@'${url}'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'` >> $LOG
 echo $api >> $LOG
 echo $CRUMB >> $LOG
 #creating jenkins user
 sleep 30 
-java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
+java -jar $srcdir/jenkins-cli.jar -s  http://${url} restart --username $user --password $passwd
 sleep 30  
-curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
+curl -X POST "http://$user:$api@${url}/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
