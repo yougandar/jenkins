@@ -5,7 +5,7 @@ srcdir="/usr/share/jenkins"
 jenkinsdir="/var/lib/jenkins"
 user="admin"
 passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
-url="$1:8080"
+url="127.0.0.1:8080"
 #for installing hxselect#
 sudo apt-get update
 sudo apt install -y html-xml-utils >> $LOG
