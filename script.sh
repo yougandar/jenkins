@@ -17,10 +17,11 @@ sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword >> $LOG
 echo "---Download the Required Jenkins Files---" >> $LOG
 wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 #Configuring Jenkins
-echo "---Configuring Jenkins---"
+echo "---Configuring Jenkins---" >> $LOG
 cd /home/ubuntu/
+echo "`pwd`" >> $LOG
 curl -L -O http://${url}/jnlpJars/jenkins-cli.jar >> $LOG
-sudo cp ./jenkins-cli.jar /usr/share/jenkins/ >> $LOG
+sudo cp /home/ubuntu/jenkins-cli.jar /usr/share/jenkins/ >> $LOG
 #wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
 java -jar $srcdir/jenkins-cli.jar -s http://${url} who-am-i --username $user --password $passwd >> $LOG
 api=`curl --silent --basic http://$user:$passwd@${url}/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'` >> $LOG
