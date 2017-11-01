@@ -8,25 +8,25 @@ passwd=`cat /var/lib/jenkins/secrets/initialAdminPassword`
 url="localhost:8080"
 #for installing hxselect#
 sudo apt-get update
-sudo apt install -y html-xml-utils
+sudo apt install -y html-xml-utils >> $LOG
 sleep 20
 #setting the permissions
-chmod 777 /var/lib/jenkins/secrets
-chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
+sudo chmod 777 /var/lib/jenkins/secrets >> $LOG
+sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword >> $LOG
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
 wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
 cd /home/ubuntu/
-wget http://localhost:8080/jnlpJars/jenkins-cli.jar
-sudo cp ./jenkins-cli.jar /usr/share/jenkins/
+curl -L -O http://localhost:8080/jnlpJars/jenkins-cli.jar >> $LOG
+sudo cp ./jenkins-cli.jar /usr/share/jenkins/ >> $LOG
 #wget -P /usr/share/jenkins http://localhost:8080/jnlpJars/jenkins-cli.jar
-java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd
-api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'`
-CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
-echo $api
-echo $CRUMB
+java -jar $srcdir/jenkins-cli.jar -s http://$url who-am-i --username $user --password $passwd >> $LOG
+api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxselect '#apiToken' | sed 's/.*value="\([^"]*\)".*/\1\n/g'` >> $LOG
+CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'` >> $LOG
+echo $api >> $LOG
+echo $CRUMB >> $LOG
 #creating jenkins user
 sleep 30 
 java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd
