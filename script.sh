@@ -9,10 +9,10 @@ url="localhost:8080"
 #for installing hxselect#
 sudo apt-get update
 sudo apt install -y html-xml-utils
-sudo sleep 20
+sleep 20
 #setting the permissions
-sudo chmod 777 /var/lib/jenkins/secrets
-sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
+chmod 777 /var/lib/jenkins/secrets
+chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
 wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
