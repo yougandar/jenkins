@@ -34,4 +34,4 @@ echo $CRUMB
 sleep 30 
 java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd 
 sleep 30  
-curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
+curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/configfile1.xml" -H "$CRUMB" -H "Content-Type: text/xml"
