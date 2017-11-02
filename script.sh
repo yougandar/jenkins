@@ -31,7 +31,7 @@ api=`curl --silent --basic http://$user:$passwd@$url/user/admin/configure | hxse
 CRUMB=`curl 'http://'$user':'$api'@'$url'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'`
 echo $api
 echo $CRUMB
-sleep 20 
+sleep 30
 java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd 
-sleep 20
+sleep 30
 curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
