@@ -18,7 +18,7 @@ sudo chmod 777 /var/lib/jenkins/secrets
 sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
-wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/configfile1.xml >> $LOG
+wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
 sleep 20
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
@@ -34,4 +34,4 @@ echo $CRUMB
 sleep 20 
 java -jar $srcdir/jenkins-cli.jar -s  http://$url restart --username $user --password $passwd 
 sleep 20
-curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/configfile1.xml" -H "$CRUMB" -H "Content-Type: text/xml"
+curl -X POST "http://$user:$api@$url/createItem?name=GameofLifeJob" --data-binary "@$srcdir/job-configfile.xml" -H "$CRUMB" -H "Content-Type: text/xml"
