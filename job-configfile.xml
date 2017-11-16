@@ -34,7 +34,7 @@
       <defaultExcludes>true</defaultExcludes>
       <caseSensitive>true</caseSensitive>
     </hudson.tasks.ArtifactArchiver>
-    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.22.2">
+    <hudson.tasks.junit.JUnitResultArchiver plugin="junit@1.22">
       <testResults>**/target/surefire-reports/*.xml</testResults>
       <keepLongStdio>false</keepLongStdio>
       <healthScaleFactor>1.0</healthScaleFactor>
