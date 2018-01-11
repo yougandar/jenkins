@@ -18,7 +18,7 @@ sudo chmod 777 /var/lib/jenkins/secrets
 sudo chmod 777 /var/lib/jenkins/secrets/initialAdminPassword
 #Download the Required Jenkins Files
 echo "---Download the Required Jenkins Files---" >> $LOG
-wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/test/master/job-configfile.xml >> $LOG
+wget -P /usr/share/jenkins https://raw.githubusercontent.com/yougandar/jenkins/master/job-configfile.xml >> $LOG
 sleep 20
 #Configuring Jenkins
 echo "---Configuring Jenkins---"
